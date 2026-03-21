@@ -21,7 +21,7 @@ public class MemberVo {
 	String			mem_ip;
 	int				mem_role_idx;	// fk: role(role_idx)
 	int				mem_grade_idx;	// fk: grade(grade_idx)
-	LocalDate		mem_bday;
+	LocalDate		mem_bday; 
 	LocalDateTime	mem_regdate;
 	String			mem_is_deleted;	// 탈퇴여부 (y/n)
 	LocalDateTime	mem_deldate;	// 탈퇴일

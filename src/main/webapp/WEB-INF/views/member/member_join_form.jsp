@@ -8,6 +8,8 @@
   <%@ include file="/WEB-INF/views/common/head.jsp" %>
 
   <script type="text/javascript">
+  	let isIdAvailable = false;
+  
     function send(f) {
       let mem_id   = f.mem_id.value.trim();
       let mem_pwd  = f.mem_pwd.value.trim();
@@ -50,39 +52,50 @@
       document.querySelector("input[name='signUp']").classList.add("opacity-50", "cursor-not-allowed");
     };
 
+    // 아이디 중복 여부 체크
     function idCheck() {
       let mem_id = document.querySelector("#mem_id").value.trim();
       let mem_msg = document.querySelector("#mem_idMsg");
 
+      // 미입력 시 메시지 안뜨게
       if (mem_id === "") {
         mem_msg.textContent = "";
+        isIdAvailable = false;
+        checkValid();
         return;
       }
 
+      // 입력 시 일치 여부에 따른 메시지
       fetch("${pageContext.request.contextPath}/member/check_id.do?mem_id=" + encodeURIComponent(mem_id))
         .then(r => r.json())
         .then(data => {
           if (data.result) {
             mem_msg.style.color = "gray";
             mem_msg.textContent = "✔ 사용 가능한 아이디입니다.";
+            isIdAvailable = true;
           } else {
             mem_msg.style.color = "red";
             mem_msg.textContent = "✘ 이미 사용 중인 아이디입니다.";
+            isIdAvailable = false;
           }
+          checkValid();
         })
         .catch(err => console.log("에러 발생:", err));
     }
 
+ 	// 비밀번호 일치 여부 확인
     function pwdMsg() {
       let mem_pwd = document.querySelector("#mem_pwd").value;
       let mem_pwdCheck = document.querySelector("#mem_pwdCheck").value;
       let mem_pwdMsg = document.querySelector("#mem_pwdMsg");
 
+  	  // 미입력 시 메시지 안뜨게
       if (mem_pwd === "" && mem_pwdCheck === "") {
         mem_pwdMsg.textContent = "";
         return;
       }
 
+   	  // 입력 시 일치 여부에 따른 메시지
       if (mem_pwd === mem_pwdCheck) {
         mem_pwdMsg.style.color="gray";
         mem_pwdMsg.textContent = "✔ 비밀번호가 일치합니다.";
@@ -99,23 +112,28 @@
       let mem_tel  = document.querySelector("input[name='mem_tel']").value.trim();
       let mem_email= document.querySelector("input[name='mem_email']").value.trim();
 
+   	  // 필수 동의 체크 박스 (name='agree')
       let agrees = document.querySelectorAll("input[name='agree']");
       let agree1 = agrees[0].checked;
       let agree2 = agrees[1].checked;
       let agree3 = agrees[2].checked;
 
       let btn = document.querySelector("input[name='signUp']");
-
+  
+      // 모든 값을 입력해야 버튼 활성화
       let isValid =
         mem_id   !== "" &&
         mem_pwd  !== "" &&
         mem_name !== "" &&
         mem_tel  !== "" &&
         mem_email !== "" &&
-        agree1 && agree2 && agree3;
+        agree1 && agree2 && agree3 &&
+        isIdAvailable;
 
+   	  // 버튼 활성화 / 비활성화
       btn.disabled = !isValid;
 
+   	  // 비활성화 시 css 변경
       if (!isValid) {
         btn.classList.add("opacity-50","cursor-not-allowed");
       } else {
@@ -142,36 +160,6 @@
                           value.substring(7,11);
         }
     }
-	 
-	 
-	// 아이디 조건
- function idCheck() {
-
-    const idInput = document.querySelector("#mem_id");
-    const msg = document.querySelector("#mem_idMsg");
-    const id = idInput.value.trim();
-
-    // 1️. 정규식 : 영문+숫자 조합, 3자 이상
-    const idReg = /^[A-Za-z0-9]{3,}$/;
-
-    // 2️.  아무것도 입력 안 했을 때
-    if (id === "") {
-        msg.textContent = "";
-        return false;
-    }
-
-    // 3️. 형식 검사
-    if (!idReg.test(id)) {
-        msg.style.color = "red";
-        msg.textContent = "✘ 영문과 숫자 조합으로 3자 이상 입력해주세요.";
-        return false;
-    }
-
-    // 4️. 형식 통과
-    msg.style.color = "green";
-    msg.textContent = "✔ 사용 가능한 형식의 아이디입니다.";
-    return true;
-}
 	 
   </script>
   

@@ -238,7 +238,7 @@ public class MemberController {
 	    // 세션에 user가 있으면 사용
 	    if (session.getAttribute("user") != null) {
 	        user = (MemberVo) session.getAttribute("user");
-	    }
+	    } 
 	    
 	    // 회원가입 직후 redirect로 들어온 경우
 	    else if (mem_id != null) {

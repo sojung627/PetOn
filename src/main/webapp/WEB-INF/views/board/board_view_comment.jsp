@@ -324,7 +324,7 @@
 			<c:if test="${not empty replyList}">
 				<div class="space-y-6">
 					<c:forEach var="r" items="${replyList}">
-						<div class="flex gap-4 group">
+						<div class="flex gap-4 group" style="margin-left:${r.reply_depth * 28}px;">
 							<div
 								class="w-10 h-10 rounded-full bg-white border border-gray-100 flex-shrink-0 flex items-center justify-center text-gray-400 shadow-sm">
 								<i class="fa-regular fa-user"></i>
@@ -409,9 +409,11 @@
 										<button type="button" class="hover:text-blue-500 ml-2"
 											onclick="toggleEditForm(${r.reply_idx})">수정</button>
 
-										<form action="reply_delete.do" method="post" class="inline">
+										<form action="${pageContext.request.contextPath}/reply/delete.do" 
+											method="post" class="inline">
 											<input type="hidden" name="reply_idx" value="${r.reply_idx}">
 											<input type="hidden" name="board_idx" value="${vo.board_idx}">
+											<input type="hidden" name="b_type" value="${b_type}">
 											<button type="submit" class="hover:text-red-500 ml-2">
 												삭제</button>
 										</form>

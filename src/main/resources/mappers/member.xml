@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        mem_idx, mem_id, mem_pwd, mem_name, mem_tel, mem_email,
 	        mem_ip, mem_role_idx, mem_grade_idx, mem_bday, mem_regdate
 	    ) VALUES (
-	        nextval('seq_mem_idx'),
+	        nextval('member_mem_idx_seq'),
 	        #{mem_id},
 	        #{mem_pwd},
 	        #{mem_name},
@@ -117,12 +117,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 			
 	<!-- 회원탈퇴(soft delete) -->
-	<update id="delete" parameterType="int">
+	<delete id="delete" parameterType="int">
+    	DELETE FROM member WHERE mem_idx=#{mem_idx}
+	</delete>
+	
+<!-- 	<update id="delete" parameterType="int">
 	    UPDATE member SET
 	    	mem_is_deleted='Y',
 	    	mem_deldate=NOW() 
 	    WHERE mem_idx=#{mem_idx}
-	</update>
+	</update> -->
 	
 
 	<!-- ========== 부가정보 ========== -->
@@ -206,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mem_addr,
         mem_addr_detail
     ) VALUES (
-        nextval('seq_mem_addr_idx'),
+        nextval('member_addr_addr_idx_seq'),  
         #{mem_idx},
         #{mem_zipcode},
         #{mem_addr},

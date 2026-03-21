@@ -29,9 +29,9 @@ public interface MemberDao {
     List<MemberVo> 	selectList();
 
     // 회원번호로 조회 (빠른 단건)
-    MemberVo 		electOneFromIdx(int mem_idx);
+    MemberVo 		selectOneFromIdx(int mem_idx);
 
-    // 아이디로 전체조회 (myUpdate용)
+    // 아이디로 전체조회 (myUpdate용) 
     MemberVo 		selectOneFromId(String mem_id);
     
     // 회원정보 수정

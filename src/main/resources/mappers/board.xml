@@ -193,7 +193,7 @@
     <insert id="insert" parameterType="board">
 
         <selectKey keyProperty="board_idx" resultType="int" order="BEFORE">
-          SELECT nextval('seq_board_idx')
+          SELECT nextval('board_board_idx_seq')
         </selectKey>
 
         INSERT INTO board (
@@ -526,7 +526,7 @@
     SELECT *
     FROM (
         SELECT
-            ROW_NUMBER() OVER (ORDER BY b.board_idx DESC) AS no
+            ROW_NUMBER() OVER (ORDER BY b.board_idx DESC) AS no,
 
             -- board
             b.board_idx,

@@ -11,6 +11,8 @@
 </style>
 
 <script type="text/javascript">
+	let isIdAvailable = false;
+
 	function send(f) {
 		// 변수 선언
 		let mem_id 		= f.mem_id.value.trim();
@@ -78,6 +80,8 @@
 		    // 미입력 시 메시지 안뜨게
 		    if (mem_id === "") {
 		        mem_msg.textContent = "";
+		        isIdAvailable = false;
+		        checkValid();
 		        return;
 		    }
 			
@@ -88,10 +92,13 @@
 		            if (data.result) {
 		                mem_msg.style.color = "gray";
 		                mem_msg.textContent = "✔ 사용 가능한 아이디입니다.";
+		                isIdAvailable = true;
 		            } else {
 		                mem_msg.style.color = "red";
 		                mem_msg.textContent = "✘ 이미 사용 중인 아이디입니다.";
+		                isIdAvailable = false;
 		            }
+		            checkValid();
 		        })
 		        .catch(err => console.log("에러 발생 : ", err));
 		}
@@ -149,7 +156,8 @@
 	    	mem_name !== "" &&
 	    	mem_tel !== "" &&
 	    	mem_email !== "" &&
-	        agree1 && agree2 && agree3;
+	        agree1 && agree2 && agree3 &&
+	        isIdAvailable;
 
 	    // 버튼 활성화 / 비활성화
 	    btn.disabled = !isValid;

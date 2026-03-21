@@ -60,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    cart_item_quantity
 		)
 		VALUES (
-		    nextval('seq_cart_item_idx'),
+		    nextval('cart_item_cart_item_idx_seq'),
 		    (SELECT cart_idx FROM cart WHERE mem_idx = #{mem_idx}),
 		    #{item_idx},
 		    1
@@ -93,7 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="createCart">
-	   nextval('seq_cart_idx'), #{mem_idx})
+	  INSERT INTO cart (cart_idx, mem_idx)
+	  VALUES (nextval('cart_cart_idx_seq'), #{mem_idx})
 	</insert>
     
 </mapper>

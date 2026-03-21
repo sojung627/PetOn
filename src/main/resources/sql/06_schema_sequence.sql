@@ -1,4 +1,8 @@
 /*
+
+-- 쓰지마
+-- POstgreSQL은 시퀀스 자동 생성해줌
+
 -- 시퀀스 관리
 CREATE SEQUENCE seq_mem_idx START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_mem_addr_idx START WITH 1 INCREMENT BY 1;

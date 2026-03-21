@@ -7,14 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 해당 글의 파일 조회 -->
 <select id="selectListByBoardIdx" parameterType="int" resultType="board_file">
     SELECT
-        file_idx        AS fileidx,
-        board_idx       AS boardidx,
-        file_original_name  AS fileoriginalname,
-        file_saved_name     AS filesavedname,
-        file_path       AS filepath,
-        file_size       AS filesize,
-        file_type       AS filetype,
-        file_regdate    AS fileregdate
+        file_idx,
+        board_idx,       
+        file_original_name,
+        file_saved_name,    
+        file_path,   
+        file_size,      
+        file_type,       
+        file_regdate   
     FROM
         board_file
     WHERE
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 시퀀스 값 가져오기 -->
 <select id="selectNextFileIdx" resultType="int">
-   SELECT nextval('seq_board_file_idx')
+   SELECT nextval('board_file_file_idx_seq')
 </select>
 
 <!-- 파일 insert -->
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         file_type,
         file_regdate
     ) VALUES (
-        nextval('seq_board_file_idx'),
+        nextval('board_file_file_idx_seq'),
         #{board_idx},
         #{file_original_name},
         #{file_saved_name},

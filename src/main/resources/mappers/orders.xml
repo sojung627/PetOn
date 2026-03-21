@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    WHERE o.mem_idx = #{mem_idx}
 	    <if test="searchKeyword != null and searchKeyword != ''">
 	        AND (
-			            o.orders_idx LIKE '%' || #{searchKeyword} || '%'
+			            o.orders_idx::text LIKE '%' || #{searchKeyword} || '%'  <!-- 숫자 -> 문자 변환 -->
 			            OR o.orders_idx IN (
 											                SELECT oi.orders_idx 
 											                FROM orders_item oi 
@@ -71,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <insert id="createOrders" parameterType="orders">
         <selectKey keyProperty="orders_idx" resultType="int" order="BEFORE">
-            SELECT nextval('seq_orders_idx')
+            SELECT nextval('orders_orders_idx_seq')
         </selectKey>
         INSERT INTO orders (
         										orders_idx, mem_idx, 
@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         												orders_price_at
         												)
         VALUES (
-        				nextval('seq_orders_item_idx'),
+        				nextval('orders_item_orders_item_idx_seq'),
         				#{orders_idx}, 
         				#{item_idx}, 
         				#{orders_item_quantity}, 

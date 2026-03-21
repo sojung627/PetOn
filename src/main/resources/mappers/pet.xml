@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     pet_bday,
     is_primary
 ) VALUES (
-    nextval('seq_pet_idx'),
+    nextval('pet_pet_idx_seq'),
     #{mem_idx},
     #{pet_name},
     #{pet_species},

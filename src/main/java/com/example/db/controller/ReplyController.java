@@ -170,24 +170,24 @@ public class ReplyController {
      * POST /reply/delete.do
      */
     @PostMapping("delete.do")
-    @ResponseBody
-    public Map<String, Boolean> delete(@RequestParam("reply_idx") int replyIdx) {
-        Map<String, Boolean> result = new HashMap<>();
+    public String delete(@RequestParam("reply_idx") int replyIdx,
+                         @RequestParam("board_idx") int boardIdx,
+                         @RequestParam("b_type") String bType) {
 
         MemberVo user = (MemberVo) session.getAttribute("user");
         if (user == null) {
-            result.put("result", false);
-            return result;
+        	return "redirect:/" + bType + "/view.do?board_idx=" + boardIdx;
         }
 
         ReplyVo dbVo = replyDao.selectOne(replyIdx);
         if (dbVo == null || (dbVo.getMem_idx() != user.getMem_idx() && user.getMem_role_idx() != 3)) {
-            result.put("result", false);
-            return result;
+        	return "redirect:/" + bType + "/view.do?board_idx=" + boardIdx;
         }
 
-        int res = replyDao.softDelete(replyIdx);
-        result.put("result", res == 1);
-        return result;
+        replyDao.softDelete(replyIdx);
+
+        return "redirect:/" + bType + "/view.do?board_idx=" + boardIdx;
     }
+    
+    
 }

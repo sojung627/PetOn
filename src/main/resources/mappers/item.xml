@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        item_detail_img,
 	        item_regdate
 	    ) VALUES (
-	        nextval('seq_item_idx'),
+	        nextval('item_item_idx_seq'),
 	        #{item_name},
 	        #{item_origin_price},
 	        #{item_now_price},

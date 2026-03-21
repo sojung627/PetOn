@@ -1,3 +1,7 @@
+
+-- 수정 안해서 아직 Oracle임
+-- 쓰지마!
+
 -- 0. 코드 테이블
 CREATE TABLE role (
     role_idx    NUMBER        PRIMARY KEY,

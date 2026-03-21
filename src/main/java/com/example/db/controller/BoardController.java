@@ -347,6 +347,10 @@ public class BoardController {
         String typeCode = b_type.toUpperCase();
         BoardVo vo = boardDao.selectOneByIdxAndTypeCode(board_idx, typeCode);
 
+        if (vo == null) {
+            return "redirect:/" + b_type + "/list.do";
+        }
+        
         if (session.getAttribute("show_" + board_idx) == null) {
             boardDao.updateReadhit(board_idx);
             session.setAttribute("show_" + board_idx, true);

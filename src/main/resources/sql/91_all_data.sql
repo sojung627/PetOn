@@ -1,3 +1,7 @@
+
+-- 수정 안해서 아직 Oracle임
+-- 쓰지마!
+
 -- item 더미는 데이터가 많으므로 14_data_item.sql 에서 별도 실행
 
 -- member 더미 (admin 1명, doctor 3명, user 6명)

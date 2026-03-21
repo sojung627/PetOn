@@ -83,7 +83,7 @@
     <insert id="insert" parameterType="reply">
         <!-- 새 PK -->
         <selectKey keyProperty="reply_idx" resultType="int" order="BEFORE">
-            SELECT nextval('seq_reply_idx')
+            SELECT nextval('reply_reply_idx_seq')
         </selectKey>
 
         <!-- 원댓글: ref = 자기 PK, step=0, depth=0 -->
@@ -131,7 +131,7 @@
     <!-- 7) 대댓글 등록 (기준 댓글 baseVo 기준) -->
     <insert id="rereply" parameterType="reply">
         <selectKey keyProperty="reply_idx" resultType="int" order="BEFORE">
-            SELECT nextval('seq_reply_idx')
+            SELECT nextval('reply_reply_idx_seq')
         </selectKey>
 
         INSERT INTO reply (
